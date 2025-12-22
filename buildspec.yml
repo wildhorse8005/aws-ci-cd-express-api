@@ -1,5 +1,9 @@
 version: 0.2
 
+env:
+  variables:
+    NODE_ENV: production
+
 phases:
   install:
     runtime-versions:
@@ -8,10 +12,18 @@ phases:
       - node -v
       - npm -v
       - npm ci
+
+  pre_build:
+    commands:
+      # Run quality checks if scripts exist; skip gracefully if not
+      - npm run lint --if-present
+      - npm run format:check --if-present
+      - npm test --if-present
+
   build:
     commands:
-      # Optional: quick sanity check that the app file exists
-      - test -f server.js || test -f app.js
+      # For pure Express apps there may be no build step; keep it for compatibility
+      - echo "Build phase completed (no compile step for plain Express)."
 
 artifacts:
   files:
