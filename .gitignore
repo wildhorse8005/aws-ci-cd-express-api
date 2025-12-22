@@ -172,3 +172,5 @@ tags
 .history
 
 # End of https://www.toptal.com/developers/gitignore/api/node,macos,visualstudiocode,vim
+
+.env
